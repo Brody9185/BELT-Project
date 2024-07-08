@@ -4,7 +4,7 @@ License, v. 2.0. If a copy of the MPL was not distributed with this
 file, You can obtain one at http://mozilla.org/MPL/2.0/.
 */
 
-#include "main.h"
+#include"main.h"
 #include "EZ-Template/api.hpp"
 #include "EZ-Template/sdcard.hpp"
 #include "pros/llemu.hpp"
@@ -47,17 +47,16 @@ bool Drive::pid_tuner_print_brain_enabled() { return pid_tuner_lcd_b; }
 // Enable PID Tuner
 void Drive::pid_tuner_enable() {
   // Set the constants
-constants = {
-    {"Forward EZ Constants", &forward_drivePID.constants},
-    {"Backward EZ Constants", &backward_drivePID.constants},
-    {"Turning EZ Constants", &turnPID.constants},
-    {"Heading EZ Constants", &headingPID.constants},
-    {"Swing EZ Constants", &swingPID.constants},
-    //{"Linear LEM Constants", &linPID.constants}, uncomment once these PID have been created.
-    //{"Angular LEM Constants", &AngPID.constants}, uncomment once these PID have been created.
-    {"Arm Constants", &armPID.constants},
-    {"Wheel Constants", &wheelPID.constants}
-};
+  constants = {
+      {"Drive Forward PID Constants", &forward_drivePID.constants},
+      {"Drive Backward PID Constants", &backward_drivePID.constants},
+      {"Heading PID Constants", &headingPID.constants},
+      {"Turn PID Constants", &turnPID.constants},
+      {"Swing Forward PID Constants", &forward_swingPID.constants},
+      {"Swing Backward PID Constants", &backward_swingPID.constants},
+      {"Arm PID Constants", &forward_drivePID.constants},
+      {"Wheel PID Constants", &wheelPID.constants}
+      };
 
   pid_tuner_brain_init();
 
