@@ -3,6 +3,8 @@
 #include "lemlib/chassis/chassis.hpp"
 #include "lemlib/asset.hpp"
 
+extern int 
+
 // controller
 extern pros::Controller controller;
 
@@ -31,3 +33,7 @@ extern lemlib::OdomSensors sensors;
 extern lemlib::ExpoDriveCurve throttleCurve;
 extern lemlib::ExpoDriveCurve steerCurve;
 extern lemlib::Chassis LEMchassis;
+
+//functions
+void setLinPID();
+void setAngPID();

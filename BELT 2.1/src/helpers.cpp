@@ -68,3 +68,7 @@ void init() {
     500,
     500);
 }
+
+//Declaring LEM PID
+ez::PID linPID{1,1,1,1,"wheel"};
+ez::PID angPID{1,1,1,1,"wheel"};

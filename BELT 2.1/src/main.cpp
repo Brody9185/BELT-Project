@@ -17,8 +17,8 @@ void initialize() {
     //Custom PID Tuning
     EZchassis.pid_tuner_pids.push_back({"Arm PID Constants", &armPID.constants});
     EZchassis.pid_tuner_pids.push_back({"Wheel PID Constants", &wheelPID.constants});
-    //EZchassis.pid_tuner_pids.push_back({"Lin PID Constants", &linPID.constants}); // Creat Ez PID for these
-    //EZchassis.pid_tuner_pids.push_back({"Ang PID Constants", &angPID.constants}); // Creat Ez PID for these
+    EZchassis.pid_tuner_pids.push_back({"Lin PID Constants", &linPID.constants}); // Creat Ez PID for these
+    EZchassis.pid_tuner_pids.push_back({"Ang PID Constants", &angPID.constants}); // Creat Ez PID for these
 
     // the default rate is 50. however, if you need to change the rate, you
     // can do the following.

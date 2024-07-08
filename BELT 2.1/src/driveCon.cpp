@@ -53,7 +53,8 @@ lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                               HORIZONTAL_DRIFT // horizontal drift is 2. If we had traction wheels, it would have been 8
 );
 
-  //lateral motion controller
+  void setLinPID(){
+  //linear motion controller
   lemlib::ControllerSettings linearController(10, // proportional gain (kP)
                                             0, // integral gain (kI)
                                             3, // derivative gain (kD)
@@ -64,6 +65,7 @@ lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                                             500, // large error range timeout, in milliseconds
                                             20 // maximum acceleration (slew)
 );
+}
 
   // angular motion controller
   lemlib::ControllerSettings angularController(2, // proportional gain (kP)

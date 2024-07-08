@@ -15,3 +15,7 @@ void init();
 extern ez::PID armPID;
 
 extern ez::PID wheelPID;
+
+extern ez::PID linPID;
+
+extern ez::PID angPID;
