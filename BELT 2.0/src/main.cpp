@@ -90,6 +90,10 @@ void opcontrol() {
 
       EZchassis.pid_tuner_iterate();  // Allow PID Tuner to iterate
     }
+
+    //Button Inputs
+    if(master)
+
         EZchassis.drive_brake_set(pros::E_MOTOR_BRAKE_COAST);
         int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
         int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
