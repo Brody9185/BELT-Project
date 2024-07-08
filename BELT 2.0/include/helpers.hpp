@@ -2,8 +2,6 @@
 
 void setIntake(int intakePower);
 
-void pistonToggle();
-
 void arm_wait();
 
 void arm_task();

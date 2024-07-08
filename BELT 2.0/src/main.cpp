@@ -14,6 +14,12 @@ void initialize() {
     EZchassis.opcontrol_curve_default_set(3, 3.5); // EZ set drive curve
     init();
     
+    //Custom PID Tuning
+    EZchassis.pid_tuner_pids.push_back({"Arm PID Constants", &armPID.constants});
+    EZchassis.pid_tuner_pids.push_back({"Wheel PID Constants", &wheelPID.constants});
+    //EZchassis.pid_tuner_pids.push_back({"Lin PID Constants", &linPID.constants}); // Creat Ez PID for these
+    //EZchassis.pid_tuner_pids.push_back({"Ang PID Constants", &angPID.constants}); // Creat Ez PID for these
+
     // the default rate is 50. however, if you need to change the rate, you
     // can do the following.
     // lemlib::bufferedStdout().setRate(...);
@@ -92,7 +98,45 @@ void opcontrol() {
     }
 
     //Button Inputs
+    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
+
+    }
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){//right back scuff
+
+    }
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_X)){
+
+    }
+    /*else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){//right fwd scuff
+
+    } */
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+
+    }
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){//left back scuff
+
+    }
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)){
+
+    }
+    else if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){//left fwd scuff
     
+    }
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
+
+    }    
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
+
+    }
+    /*else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+
+    }    
+    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
+
+    } */
+
+    Piston1.button_toggle(master.get_digital(DIGITAL_Y));
+    setIntake((master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)-master.get_digital(pros::E_CONTROLLER_DIGITAL_L2))*127);
 
         EZchassis.drive_brake_set(pros::E_MOTOR_BRAKE_COAST);
         int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
