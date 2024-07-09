@@ -14,3 +14,8 @@ extern ez::Piston Piston1;
 //Auton Selector
 extern pros::adi::DigitalIn increase; //limit swith for auton selector
 extern pros::adi::DigitalIn decrease; //limit swith for auton selector
+
+//PID
+extern lemlib::ControllerSettings linearController;
+
+extern lemlib::ControllerSettings angularController;

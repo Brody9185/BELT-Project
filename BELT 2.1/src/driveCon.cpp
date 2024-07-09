@@ -53,32 +53,6 @@ lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                               HORIZONTAL_DRIFT // horizontal drift is 2. If we had traction wheels, it would have been 8
 );
 
-  void setLinPID(){
-  //linear motion controller
-  lemlib::ControllerSettings linearController(10, // proportional gain (kP)
-                                            0, // integral gain (kI)
-                                            3, // derivative gain (kD)
-                                            3, // anti windup
-                                            1, // small error range, in inches
-                                            100, // small error range timeout, in milliseconds
-                                            3, // large error range, in inches
-                                            500, // large error range timeout, in milliseconds
-                                            20 // maximum acceleration (slew)
-);
-}
-
-  // angular motion controller
-  lemlib::ControllerSettings angularController(2, // proportional gain (kP)
-                                            0, // integral gain (kI)
-                                            10, // derivative gain (kD)
-                                            3, // anti windup
-                                            1, // small error range, in degrees
-                                            100, // small error range timeout, in milliseconds
-                                            3, // large error range, in degrees
-                                            500, // large error range timeout, in milliseconds
-                                            0 // maximum acceleration (slew)
-);
-
 // sensors for odometry
 lemlib::OdomSensors sensors(&vertical, // vertical tracking wheel
                             nullptr, // vertical tracking wheel 2, set to nullptr as we don't have a second one
@@ -98,6 +72,3 @@ lemlib::ExpoDriveCurve steerCurve(0, // joystick deadband out of 127
                                   10, // minimum output where drivetrain will move out of 127
                                   4.5 // expo curve gain
 );
-
-// create the chassis
-lemlib::Chassis LEMchassis(drivetrain, linearController, angularController, sensors, &throttleCurve, &steerCurve);
