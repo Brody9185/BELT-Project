@@ -1,8 +1,6 @@
 #include "main.h"
 #include "EZ-Template/util.hpp"
 #include "lemlib/api.hpp"
-#include "EZ-Template/PID.hpp"
-#include "helpers.hpp"
 
 //Piston
 
@@ -71,37 +69,6 @@ void init() {
     500);
 }
 
-
-//LEM PID Tuner Functions
-
 //Declaring LEM PID
-ez::PID linPID{0,0,10,0,"LEM Linear"};
-ez::PID angPID{0,0,3,0,"LEM Angular"};
-
-
-    //linear motion controller
-    lemlib::ControllerSettings linearController(linPID.constants.kp, // proportional gain (kP)
-                                            linPID.constants.ki, // integral gain (kI)
-                                            linPID.constants.kd, // derivative gain (kD)
-                                            3, // anti windup
-                                            1, // small error range, in inches
-                                            100, // small error range timeout, in milliseconds
-                                            3, // large error range, in inches
-                                            500, // large error range timeout, in milliseconds
-                                            20 // maximum acceleration (slew)
-    );// angular motion controller
-  lemlib::ControllerSettings angularController(angPID.constants.kp, // proportional gain (kP)
-                                            angPID.constants.ki, // integral gain (kI)
-                                            angPID.constants.kd, // derivative gain (kD)
-                                            3, // anti windup
-                                            1, // small error range, in degrees
-                                            100, // small error range timeout, in milliseconds
-                                            3, // large error range, in degrees
-                                            500, // large error range timeout, in milliseconds
-                                            0 // maximum acceleration (slew)
-);
-
-
-//Create The Chassis using these numbers
-// create the chassis
-lemlib::Chassis LEMchassis(drivetrain, linearController, angularController, sensors, &throttleCurve, &steerCurve);
+ez::PID linPID{1,1,1,1,"wheel"};
+ez::PID angPID{1,1,1,1,"wheel"};
