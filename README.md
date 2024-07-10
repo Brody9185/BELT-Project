@@ -90,7 +90,7 @@ void lin_PID(){
 
 ## ![Static Badge](https://img.shields.io/badge/GitHub-Robotics_is_EZ-rgb(255%2C147%2C213)?link=https%3A%2F%2Fgithub.com%2FEZ-Robotics)
  - ![Static Badge](https://img.shields.io/badge/Discord-Jess-rgb(255%2C112%2C200))
-## ![Static Badge](https://img.shields.io/badge/LEMLib-https%3A%2F%2Fgithub.com%2FLemLib-lime)
+## ![Static Badge](https://img.shields.io/badge/GitHub-LEMLib-rgb(0%2C188%2C0)?link=https%3A%2F%2Fgithub.com%2FLemLib)
  - ![Static Badge](https://img.shields.io/badge/Discord-Lembron_James-rgb(0%2C148%2C0))
 
 ## Others
