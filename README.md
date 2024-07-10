@@ -33,7 +33,7 @@ This project is used and developed by:
 # Installation
 
 ## Example Project
-"link to Example.zip"
+[V 2.2](https://github.com/Brody9185/BELT-Project/blob/main/Releases/BELT%202.2.zip)
 
 ## Template
 "WIP"
@@ -85,7 +85,6 @@ void lin_PID(){
 # Documentation
 
 [Table of Contents](https://github.com/7865-Owlumination/BELT-Project/blob/main/Docs/TOC.md)
-
 
 # Acknowledgements
 
