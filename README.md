@@ -1,5 +1,4 @@
-![MarineGEO circle logo](/assets/img/MarineGEO_logo.png "MarineGEO logo")
-![9185 Banner](Docs/Assests/9185 Red CM.png "9185 Banner")
+![9185 Banner](Docs/Assests/9185_Red_CM.png "9185 Banner")
 
 Hello, we are a group of Programmers from a VRC High School Organization, and we go by the 9185 number.
 This prodject is an attempt to organize the likes of the LemLib, and Ez Templates into one cohersive file.
