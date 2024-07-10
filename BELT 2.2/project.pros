@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "BELT 2.1",
+    "project_name": "BELT 2.2",
     "target": "v5",
     "templates": {
       "EZ-Template": {
