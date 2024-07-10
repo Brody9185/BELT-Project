@@ -76,11 +76,6 @@ lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                                             0 // maximum acceleration (slew)
 );
 
-linearController = lemlib::ControllerSettings(linPID.constants.kp, linPID.constants.ki, linPID.constants.kd, 0, 1, 100, 3, 500);
-angularController = lemlib::ControllerSettings(angPID.constants.kp, angPID.constants.ki, angPID.constants.kd, 0, 1, 100, 3, 500);
-LEMchassis = lemlib::chassis(drivetrain, linearController, angularController, sensors);
-
-
 // sensors for odometry
 lemlib::OdomSensors sensors(&vertical, // vertical tracking wheel
                             nullptr, // vertical tracking wheel 2, set to nullptr as we don't have a second one
@@ -103,3 +98,4 @@ lemlib::ExpoDriveCurve steerCurve(0, // joystick deadband out of 127
 
 // create the chassis
 lemlib::Chassis LEMchassis(drivetrain, linearController, angularController, sensors, &throttleCurve, &steerCurve);
+LEMchassis.linearSettings.kp = linPID.constants.kp

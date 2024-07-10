@@ -23,7 +23,7 @@ void defaultConstants() {
 }
 
 void testAuton(){
-
+LEMchassis.linearSettings.kp = linPID.constants.kp;
     EZchassis.drive_brake_set(MOTOR_BRAKE_HOLD); 
     EZchassis.pid_drive_toggle(false);
 
