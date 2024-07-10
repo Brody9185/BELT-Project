@@ -97,4 +97,3 @@ void lin_PID(){
 - ![Static Badge](https://img.shields.io/badge/Discord-Praful_%7C_5839B-%23feec95)
 - ![Static Badge](https://img.shields.io/badge/Discord-kapri-rgb(234%2C144%2C238))
 
-
