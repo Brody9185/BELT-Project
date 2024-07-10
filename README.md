@@ -3,9 +3,9 @@
 # BELT Project
 Hello, we are a group of Programmers from a VRC High School Organization, and we go by the 9185 number.
 This prodject is an attempt to organize the likes of the LemLib, and Ez Templates into one cohersive file.
-We also plan to work of other generally untilities for VRC use and will both include them here, but also as their own file meant to implamented into any PROS(And maybe even Vex Code Pro) Prodject.
+We also plan to work of other generally untilities for VRC use and will both include them here, but also as their own file meant to implamented into any PROS(And maybe even Vex Code Pro) Project.
 
-This is a VRC PROS prodject to allow the use of both EZ Template, and LEMlib functions.
+This is a VRC project meant to allow the use of both EZ Template, and LEMlib functions, aswell as to provide other general untility to teams.
 
 
 ## Badges
@@ -13,7 +13,7 @@ This is a VRC PROS prodject to allow the use of both EZ Template, and LEMlib fun
 
 ![Static Badge](https://img.shields.io/badge/PROS-Functional-green)
 
-![Static Badge](https://img.shields.io/badge/Vex_Code_Pro-WIP-maroon)
+![Static Badge](https://img.shields.io/badge/Vex_Code_Pro-Unavailable-maroon)
 
 ![Static Badge](https://img.shields.io/badge/Example_Project-WIP-yellow)
 
