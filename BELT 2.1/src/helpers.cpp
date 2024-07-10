@@ -69,6 +69,16 @@ void init() {
     500);
 }
 
-//Declaring LEM PID
-ez::PID linPID{0,0,10,0,"LEM Linear"};
-ez::PID angPID{0,0,3,0,"LEM Angular"};
+//Declare EZ PID for LEM PID
+ez::PID linPID{0,0,10,0,"LEM Linear"}; //Set the LEM PID Values for Linear Movment
+ez::PID angPID{0,0,3,0,"LEM Angular"}; //Set the LEM PID Values for Angular Movment
+
+//Update LEM PID Values to the EZ Values
+void updatePID() {
+    LEMchassis.lateralSettings.kP = linPID.constants.kp;
+    LEMchassis.lateralSettings.kI = linPID.constants.ki;
+    LEMchassis.lateralSettings.kD = linPID.constants.kd;
+    LEMchassis.angularSettings.kP = angPID.constants.kp;
+    LEMchassis.angularSettings.kP = angPID.constants.ki;
+    LEMchassis.angularSettings.kP = angPID.constants.kd;
+}

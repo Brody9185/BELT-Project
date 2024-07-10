@@ -98,4 +98,3 @@ lemlib::ExpoDriveCurve steerCurve(0, // joystick deadband out of 127
 
 // create the chassis
 lemlib::Chassis LEMchassis(drivetrain, linearController, angularController, sensors, &throttleCurve, &steerCurve);
-LEMchassis.linearSettings.kp = linPID.constants.kp

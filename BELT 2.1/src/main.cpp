@@ -49,9 +49,9 @@ void initialize() {
     pros::Task screenTask([&]() {
         while (true) {
             // print robot location to the brain screen
-            pros::lcd::print(5, "X: %f", LEMchassis.getPose().x); // x
-            pros::lcd::print(6, "Y: %f", LEMchassis.getPose().y); // y
-            pros::lcd::print(7, "Theta: %f", LEMchassis.getPose(false).theta); // heading
+            //pros::lcd::print(5, "X: %f", LEMchassis.getPose().x); // x
+            //pros::lcd::print(6, "Y: %f", LEMchassis.getPose().y); // y
+            //pros::lcd::print(7, "Theta: %f", LEMchassis.getPose(false).theta); // heading
             // log position telemetry
             lemlib::telemetrySink()->info("Chassis pose: {}", LEMchassis.getPose());
             // delay to save resources
@@ -75,7 +75,8 @@ void competition_initialize() {
 ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 
 void autonomous() {
-ez::as::auton_selector.selected_auton_call();
+lin_PID();
+//ez::as::auton_selector.selected_auton_call();
 }
 
 void opcontrol() {
@@ -87,7 +88,10 @@ void opcontrol() {
       //  * use A and Y to increment / decrement the constants
       //  * use the arrow keys to navigate the constants
     if (master.get_digital_new_press(DIGITAL_X))
-        EZchassis.pid_tuner_toggle();
+        EZchassis.pid_tuner_toggle(); 
+        pros::lcd::print(5, "X: %f", LEMchassis.getPose().x); // x
+        pros::lcd::print(6, "Y: %f", LEMchassis.getPose().y); // y
+        pros::lcd::print(7, "Theta: %f", LEMchassis.getPose(false).theta); // heading
 
       // Trigger the selected autonomous routine
     if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {

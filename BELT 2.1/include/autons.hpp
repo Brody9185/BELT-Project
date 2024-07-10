@@ -3,7 +3,7 @@
 //functions
 
 void allPIDWait();
-void defaultConstants();
+extern void defaultConstants();
 void testAuton();
 
 //From v1
@@ -15,3 +15,8 @@ void skills_auto();
 void do_nothing();
 void pos_example();
 void point_example();
+
+//PID
+extern ez::PID linPID;
+
+extern ez::PID angPID; 
