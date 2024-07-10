@@ -1,4 +1,4 @@
-![Banner](9185 Red CM.png)
+![9185 Banner](docs/assets/MarineGEO_logo.png "9185 Banner")
 
 Hello, we are a group of Programmers from a VRC High School Organization, and we go by the 9185 number.
 This prodject is an attempt to organize the likes of the LemLib, and Ez Templates into one cohersive file.
