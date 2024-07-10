@@ -66,7 +66,6 @@ void lin_PID(){
   LEMchassis.setPose(0,0,0);
   //go forward 48 inches
   LEMchassis.moveToPoint(0,48,10000);
-
 }
 
 void left_side() {
