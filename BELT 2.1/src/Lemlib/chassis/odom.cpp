@@ -34,7 +34,7 @@ void lemlib::setSensors(lemlib::OdomSensors sensors, lemlib::Drivetrain drivetra
 }
 
 lemlib::Pose lemlib::getPose(bool radians) {
-    if (radians) return odomPose;
+    if (radians) return (odomPose);
     else return lemlib::Pose(odomPose.x, odomPose.y, radToDeg(odomPose.theta));
 }
 

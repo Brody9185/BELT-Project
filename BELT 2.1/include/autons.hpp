@@ -8,7 +8,7 @@ void testAuton();
 
 //From v1
 void ang_PID();
-void lat_PID();
+void lin_PID();
 void left_side();
 void right_side();
 void skills_auto();

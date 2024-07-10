@@ -53,24 +53,21 @@ lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                               HORIZONTAL_DRIFT // horizontal drift is 2. If we had traction wheels, it would have been 8
 );
 
-  void setLinPID(){
   //linear motion controller
-  lemlib::ControllerSettings linearController(10, // proportional gain (kP)
-                                            0, // integral gain (kI)
-                                            3, // derivative gain (kD)
+  lemlib::ControllerSettings linearController(linPID.constants.kp, // proportional gain (kP)
+                                            linPID.constants.ki, // integral gain (kI)
+                                            linPID.constants.kd, // derivative gain (kD)
                                             3, // anti windup
                                             1, // small error range, in inches
                                             100, // small error range timeout, in milliseconds
                                             3, // large error range, in inches
                                             500, // large error range timeout, in milliseconds
                                             20 // maximum acceleration (slew)
-);
-}
-
+); 
   // angular motion controller
-  lemlib::ControllerSettings angularController(2, // proportional gain (kP)
-                                            0, // integral gain (kI)
-                                            10, // derivative gain (kD)
+  lemlib::ControllerSettings angularController(angPID.constants.kp, // proportional gain (kP)
+                                            angPID.constants.ki, // integral gain (kI)
+                                            angPID.constants.kd, // derivative gain (kD)
                                             3, // anti windup
                                             1, // small error range, in degrees
                                             100, // small error range timeout, in milliseconds
@@ -78,6 +75,11 @@ lemlib::Drivetrain drivetrain(&leftMotors, // left motor group
                                             500, // large error range timeout, in milliseconds
                                             0 // maximum acceleration (slew)
 );
+
+linearController = lemlib::ControllerSettings(linPID.constants.kp, linPID.constants.ki, linPID.constants.kd, 0, 1, 100, 3, 500);
+angularController = lemlib::ControllerSettings(angPID.constants.kp, angPID.constants.ki, angPID.constants.kd, 0, 1, 100, 3, 500);
+LEMchassis = lemlib::chassis(drivetrain, linearController, angularController, sensors);
+
 
 // sensors for odometry
 lemlib::OdomSensors sensors(&vertical, // vertical tracking wheel

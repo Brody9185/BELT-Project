@@ -70,5 +70,5 @@ void init() {
 }
 
 //Declaring LEM PID
-ez::PID linPID{1,1,1,1,"wheel"};
-ez::PID angPID{1,1,1,1,"wheel"};
+ez::PID linPID{0,0,10,0,"LEM Linear"};
+ez::PID angPID{0,0,3,0,"LEM Angular"};

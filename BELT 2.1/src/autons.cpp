@@ -56,7 +56,7 @@ void ang_PID() {
   LEMchassis.turnToHeading(90, 100000);
 }
 
-void lat_PID(){
+void lin_PID(){
   //disable PID from EZ Template 
   EZchassis.pid_drive_toggle(false);
   //set position to 0,0 and heading 0 

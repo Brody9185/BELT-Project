@@ -3,8 +3,6 @@
 #include "lemlib/chassis/chassis.hpp"
 #include "lemlib/asset.hpp"
 
-extern int 
-
 // controller
 extern pros::Controller controller;
 

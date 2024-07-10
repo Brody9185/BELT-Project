@@ -1,4 +1,5 @@
 #include "main.h"
+#include "EZ-Template/sdcard.hpp"
 #include "lemlib/asset.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
@@ -28,10 +29,10 @@ void initialize() {
     // for more information on how the formatting for the loggers
     // works, refer to the fmtlib docs
 
-        ez::as::auton_selector.autons_add({
+    ez::as::auton_selector.autons_add({
     Auton("Testing EZ+Lem", testAuton),
     Auton("Angular PID", ang_PID),
-    Auton("Lateral PID", lat_PID),
+    Auton("Lateral PID", lin_PID),
     Auton("Left Side", left_side),
     Auton("Right Side", right_side),
     Auton("Skills", skills_auto),
@@ -45,18 +46,18 @@ void initialize() {
     pros::Task arm_Task(arm_task);
 
     // thread to for brain screen and position logging
-    /*pros::Task screenTask([&]() {
+    pros::Task screenTask([&]() {
         while (true) {
             // print robot location to the brain screen
-            pros::lcd::print(6, "X: %f", LEMchassis.getPose().x); // x
-            pros::lcd::print(7, "Y: %f", LEMchassis.getPose().y); // y
-            pros::lcd::print(8, "Theta: %f", LEMchassis.getPose().theta); // heading
+            pros::lcd::print(5, "X: %f", LEMchassis.getPose().x); // x
+            pros::lcd::print(6, "Y: %f", LEMchassis.getPose().y); // y
+            pros::lcd::print(7, "Theta: %f", LEMchassis.getPose(false).theta); // heading
             // log position telemetry
             lemlib::telemetrySink()->info("Chassis pose: {}", LEMchassis.getPose());
             // delay to save resources
             pros::delay(50);
         }
-    }); */
+    }); 
 }
 
 
