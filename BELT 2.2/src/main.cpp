@@ -9,11 +9,13 @@
 void initialize() {
     
     pros::lcd::initialize(); // initialize brain screen
+    ez::as::initialize();
     EZchassis.initialize(); // EZ calibrate sensors (MUST BE FIRST)
     LEMchassis.calibrate(false); // LEMLIB calibrate sensors (MUST BE SECOND)
     defaultConstants(); // EZ set constants
     EZchassis.opcontrol_curve_default_set(3, 3.5); // EZ set drive curve
     init();
+
     
     //Custom PID Tuning
     EZchassis.pid_tuner_pids.push_back({"Arm PID Constants", &armPID.constants});
@@ -58,6 +60,7 @@ void initialize() {
             pros::delay(50);
         }
     }); 
+    master.rumble(".");
 }
 
 
@@ -75,8 +78,7 @@ void competition_initialize() {
 ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 
 void autonomous() {
-lin_PID();
-//ez::as::auton_selector.selected_auton_call();
+ez::as::auton_selector.selected_auton_call();
 }
 
 void opcontrol() {
