@@ -1,7 +1,5 @@
 #include "main.h"
-#include "lemlib/api.hpp"
 #include "lemlib/chassis/chassis.hpp"
-#include "lemlib/asset.hpp"
 
 // controller
 extern pros::Controller controller;
