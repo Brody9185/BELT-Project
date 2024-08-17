@@ -4,9 +4,9 @@
 
 void allPIDWait();
 extern void defaultConstants();
-void testAuton();
 
-//From v1
+//Autons
+void testAuton();
 void ang_PID();
 void lin_PID();
 void left_side();
