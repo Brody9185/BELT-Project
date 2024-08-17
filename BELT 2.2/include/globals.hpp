@@ -1,7 +1,4 @@
 #include "main.h"
-#include "lemlib/api.hpp"
-#include "lemlib/chassis/chassis.hpp"
-#include "lemlib/asset.hpp"
 
 //Motors
 extern pros::Motor intakeM;

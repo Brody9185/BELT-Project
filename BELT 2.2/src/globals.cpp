@@ -1,11 +1,6 @@
-#include "lemlib/chassis/trackingWheel.hpp"
 #include "main.h"
-#include "lemlib/asset.hpp"
-#include "pros/misc.h"
-#include "pros/rotation.hpp"
-#include "pros/rtos.hpp"
-#include "lemlib/api.hpp"
-#include "lemlib/chassis/chassis.hpp"
+
+// The Purpose for this File is to Define Motors, Pistons, and Sensors that are used on the Robot to be used in Functions and Commands in 'helpers.cpp'. //
 
 //Motors
 pros::Motor intakeM (10, pros::v5::MotorGears::green, pros::v5::MotorUnits::rotations);
