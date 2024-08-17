@@ -1,3 +1,4 @@
+#include "main.h"
 #include "EZ-Template/PID.hpp"
 
 void setIntake(int intakePower);

@@ -1,26 +1,28 @@
 #include "main.h"
 #include "EZ-Template/util.hpp"
-#include "lemlib/api.hpp"
 
-//Piston
+// The Purpose for this File is to Define Functions and Commands for any and every possible Subsystem which a Team may use on their Robot
 
-
-//Intake
+// Example Intake Helper Function Code
 void setIntake(int intakePower){
     intakeM.move(intakePower);
 }
 
-//Wheel
+// Example Set Wheel Helper Function Code(Flywheel Intake PID)
 void set_wheel(int input){
 }
 
+// Example Wheel(Flywheel Intake) PID
 ez::PID wheelPID{1,1,1,1,"wheel"};
 
+// Example Wheel(Flywheel Intake PID) Wait Helper Function Code
 void wheel_wait(){
     while(wheelPID.exit_condition({wheelM},true)== ez::RUNNING){
         pros::delay(ez::util::DELAY_TIME);
     }
 }
+
+// Example Wheel(Flywheel Intake PID) Task Helper Function Code
 void wheel_task(){
     pros::delay(2000); 
     while (true) {
@@ -30,16 +32,21 @@ void wheel_task(){
     }
 }
 
+// Example Set Arm(Lift) Helper Function Code
 void set_arm(int input){
 }
 
+// Example Arm(Lift) PID
 ez::PID armPID{1,1,1,1,"arm"};
 
+// Example Arm(Lift) Wait Helper Function Code
 void arm_wait(){
     while(armPID.exit_condition({armM},true)== ez::RUNNING){
         pros::delay(ez::util::DELAY_TIME);
     }
 }
+
+// Example Arm(Lift) Task Helper Function Code
 void arm_task(){
     pros::delay(2000); 
     while (true) {
@@ -49,9 +56,9 @@ void arm_task(){
     }
 }
 
-//Initialize PID
+// Initialize PID, Used in 'main.cpp'.
 void init() {
-    //arm Init
+    //Arm Init
     armM.tare_position();
     armPID.exit_condition_set(80,
     50,
@@ -59,7 +66,7 @@ void init() {
     150,
     500,
     500);
-    //wheel Init
+    //Wheel Init
     wheelM.tare_position();
     wheelPID.exit_condition_set(80,
     50,
