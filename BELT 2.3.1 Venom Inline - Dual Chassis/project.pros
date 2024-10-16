@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "BELT 2.2",
+    "project_name": "Dual Chassis Test",
     "target": "v5",
     "templates": {
       "EZ-Template": {
@@ -463,7 +463,10 @@
         "version": "5.0.0"
       }
     },
-    "upload_options": {},
+    "upload_options": {
+      "slot": 2,
+      "description": "."
+    },
     "use_early_access": false
   }
 }

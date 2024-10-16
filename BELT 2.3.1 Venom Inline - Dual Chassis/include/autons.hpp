@@ -2,7 +2,11 @@
 
 //functions
 
-void allPIDWait();
+// Locks the Code into a While Loop until the Robot has Settled - A universal version 'chassis.pid_wait()'
+inline void allPIDWait() {
+LEMchassis.waitUntilDone();
+EZchassis.pid_wait();
+}
 extern void defaultConstants();
 
 //Autons

@@ -4,16 +4,20 @@
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
 #include "lemlib/chassis/chassis.hpp"
-#include "lemlib/chassis/odom.hpp"
 
 void initialize() {
-    
-    pros::lcd::initialize(); // initialize brain screen
+    //EZ
+    EZchassis.initialize();
     ez::as::initialize();
-    EZchassis.initialize(); // EZ calibrate sensors (MUST BE FIRST)
-    LEMchassis.calibrate(false); // LEMLIB calibrate sensors (MUST BE SECOND)
-    defaultConstants(); // EZ set constants
+    EZchassis.opcontrol_drive_activebrake_set(2); //Sets the EZ active brake.
+    EZchassis.opcontrol_curve_buttons_toggle(false); //Toggles weather you can live update joystick curve with buttons.
     EZchassis.opcontrol_curve_default_set(3, 3.5); // EZ set drive curve
+    EZchassis.initialize(); // EZ calibrate sensors (MUST BE FIRST)
+    //LEM
+    LEMchassis.calibrate(false); // LEMLIB calibrate sensors (MUST BE SECOND)
+    EZchassis.opcontrol_curve_default_set(3, 3.5); // EZ set drive curve
+    pros::lcd::initialize(); // initialize brain screen
+    defaultConstants(); // set constants
     init();
 
     
@@ -44,11 +48,9 @@ void initialize() {
 });
 
     //PID Tasks
-    pros::Task wheel_Task(wheel_task);
-    pros::Task arm_Task(arm_task);
 
     // thread to for brain screen and position logging
-    pros::Task screenTask([&]() {
+    /*pros::Task screenTask([&]() {
         while (true) {
             // print robot location to the brain screen
             //pros::lcd::print(5, "X: %f", LEMchassis.getPose().x); // x
@@ -59,7 +61,7 @@ void initialize() {
             // delay to save resources
             pros::delay(50);
         }
-    }); 
+    }); */
     master.rumble(".");
 }
 
@@ -89,12 +91,9 @@ void opcontrol() {
       //  When enabled:
       //  * use A and Y to increment / decrement the constants
       //  * use the arrow keys to navigate the constants
-    if (master.get_digital_new_press(DIGITAL_X))
+    if (master.get_digital_new_press(DIGITAL_X)){
         EZchassis.pid_tuner_toggle(); 
-        pros::lcd::print(5, "X: %f", LEMchassis.getPose().x); // x
-        pros::lcd::print(6, "Y: %f", LEMchassis.getPose().y); // y
-        pros::lcd::print(7, "Theta: %f", LEMchassis.getPose(false).theta); // heading
-
+    }
       // Trigger the selected autonomous routine
     if (master.get_digital(DIGITAL_B) && master.get_digital(DIGITAL_DOWN)) {
         autonomous();
@@ -105,52 +104,15 @@ void opcontrol() {
     }
 
     //Button Inputs
-    if(master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
-
-    }
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){//right back scuff
-
-    }
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_X)){
-
-    }
-    /*else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){//right fwd scuff
-
-    } */
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-
-    }
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){//left back scuff
-
-    }
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT)){
-
-    }
-    else if(master.get_digital_new_press(pros::E_CONTROLLER_DIGITAL_RIGHT)){//left fwd scuff
-    
-    }
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
-
-    }    
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
-
-    }
-    /*else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
-
-    }    
-    else if(master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
-
-    } */
-
-    Piston1.button_toggle(master.get_digital(DIGITAL_Y));
-    setIntake((master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)-master.get_digital(pros::E_CONTROLLER_DIGITAL_L2))*127);
+    EZchassis.opcontrol_arcade_standard(ez::SPLIT);
+    clampP.button_toggle(master.get_digital_new_press(DIGITAL_L1));
+    intakeP.button_toggle(master.get_digital(DIGITAL_L2));
+    setIntake((master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)-master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))*127);
 
         EZchassis.drive_brake_set(pros::E_MOTOR_BRAKE_COAST);
         int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X);
-        
-        EZchassis.opcontrol_arcade_standard(ez::SPLIT); 
-        
+        int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
+
         pros::delay(10);    
     }
 }
