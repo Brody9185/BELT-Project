@@ -1,0 +1,15 @@
+#include "main.h"
+#include "pros/optical.hpp"
+#include "EZ-Template/piston.hpp"
+
+// The Purpose for this File is to Define Motors, Pistons, and Sensors that are used on the Robot to be used in Functions and Commands in 'helpers.cpp'. //
+
+//Pistons
+inline ez::Piston clampP('G',false);
+inline ez::Piston colorCorrectP('H',false);
+
+inline pros::Optical colorCheckO(7);
+
+//Auton Selector
+inline pros::adi::DigitalIn increase('A'); //limit swith for auton selector
+inline pros::adi::DigitalIn decrease('B'); //limit swith for auton selector
