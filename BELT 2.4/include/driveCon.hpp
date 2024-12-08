@@ -1,3 +1,4 @@
+#include "EZ-Template/tracking_wheel.hpp"
 #include "main.h"
 #include "lemlib/chassis/chassis.hpp"
 #include "lemlib/chassis/trackingWheel.hpp"
@@ -8,25 +9,25 @@
 //driveCon
 
 //Inputs
-#define LEFTMOTOR1 -8//(Make sure this is not included in the motor groups below if not used)
-#define LEFTMOTOR2 -9//(Make sure this is not included in the motor groups below if not used)
-#define LEFTMOTOR3 5//(Make sure this is not included in the motor groups below if not used)
+#define LEFTMOTOR1 8//(Make sure this is not included in the motor groups below if not used)
+#define LEFTMOTOR2 -17//(Make sure this is not included in the motor groups below if not used)
+#define LEFTMOTOR3 19//(Make sure this is not included in the motor groups below if not used)
 #define LEFTMOTOR4 0//Set 0 because it is unused.(Make sure this is not included in the motor groups below if not used)
-#define RIGHTMOTOR1 2//(Make sure this is not included in the motor groups below if not used)
-#define RIGHTMOTOR2 4//(Make sure this is not included in the motor groups below if not used)
+#define RIGHTMOTOR1 -20//(Make sure this is not included in the motor groups below if not used)
+#define RIGHTMOTOR2 -4//(Make sure this is not included in the motor groups below if not used)
 #define RIGHTMOTOR3 -6//(Make sure this is not included in the motor groups below if not used)
 #define RIGHTMOTOR4 0//Set 0 because it is unused.(Make sure this is not included in the motor groups below if not used)
 #define DRIVETRAIN_RPM 600//Sets the drivetrain RPM.
 #define IMU_PORT1 18//Sets the 1st IMU PORT.
-#define IMU_PORT2 21//Sets the 2nd IMU PORT.(Set 0 if unused)
+#define IMU_PORT2 0//Sets the 2nd IMU PORT.(Set 0 if unused)
 #define Hor1Tracking_PORT 0
 #define Hor1Offset 0
 #define Hor2Tracking_PORT 0
 #define Hor2Offset 0
 #define HorTrackingWheelDiameter lemlib::Omniwheel::NEW_275_HALF
-#define Ver1Tracking_PORT 0
+#define Ver1Tracking_PORT 20
 #define Ver1Offset 0
-#define Ver2Tracking_PORT 0
+#define Ver2Tracking_PORT -21
 #define Ver2Offset 0
 #define VerTrackingWheelDiameter lemlib::Omniwheel::NEW_275
 #define WHEEL_DIAMETER lemlib::Omniwheel::NEW_275//This is the wheel diameter used by both EZ and LEM.
@@ -37,20 +38,20 @@
 inline pros::Controller controller(pros::E_CONTROLLER_MASTER);// Creates the controller.
 
 // motor groups
-inline std::vector<int8_t> lemLeftMotors = {LEFTMOTOR1, LEFTMOTOR2,LEFTMOTOR3}; //LEFT lemlib type motor array.
+inline std::vector<int8_t> lemLeftMotors = {LEFTMOTOR1, -LEFTMOTOR2,LEFTMOTOR3}; //LEFT lemlib type motor array.
 inline std::vector<int8_t> lemRightMotors = {RIGHTMOTOR1, RIGHTMOTOR2,RIGHTMOTOR3}; //RIGHT lemlib type motor array.
 inline std::vector<int> ezForwardLeftMotors = {lemLeftMotors[0], lemLeftMotors[1], lemLeftMotors[2]}; //LEFT ez type motor array.
 inline std::vector<int> ezForwardRightMotors = {lemRightMotors[0], lemRightMotors[1], lemRightMotors[2]}; //RIGHT ez type motor array.
-inline std::vector<int> ezBackwardLeftMotors = {lemLeftMotors[2], lemLeftMotors[1], lemLeftMotors[0]}; //LEFT ez type motor array.
-inline std::vector<int> ezBackwardRightMotors = {lemRightMotors[2], lemRightMotors[1], lemRightMotors[0]}; //RIGHT ez type motor array.
+//inline std::vector<int> ezBackwardLeftMotors = {lemLeftMotors[2], lemLeftMotors[1], lemLeftMotors[0]}; //LEFT ez type motor array.
+//inline std::vector<int> ezBackwardRightMotors = {lemRightMotors[2], lemRightMotors[1], lemRightMotors[0]}; //RIGHT ez type motor array.
 inline pros::MotorGroup leftMotors(lemLeftMotors, pros::MotorGearset::blue); // left motor group.
 inline pros::MotorGroup rightMotors(lemRightMotors, pros::MotorGearset::blue); // right motor group.
 
-// Inertial Sensor on port 18 & 19
+// Inertial Sensor
 inline pros::Imu imu(IMU_PORT1);//Creates the 1st IMU.
 inline pros::Imu imu2(IMU_PORT2);//Creates the 2nd IMU.
 
-
+//ez::tracking_wheel Left(20,2,10,1);
 
 inline ez::Drive EZchassis(
     
@@ -59,7 +60,9 @@ inline ez::Drive EZchassis(
 
     IMU_PORT1,// IMU Port.
     WHEEL_DIAMETER,// Wheel Diameter.
-    DRIVETRAIN_RPM// Drive RPM.
+    600// Drive RPM.
+    //Ver2Tracking_PORT,
+    //Ver1Tracking_PORT
     );
 
 inline lemlib::Drivetrain drivetrain(&leftMotors,// left motor group.

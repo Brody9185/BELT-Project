@@ -1,5 +1,6 @@
 #include "main.h"
 #include "lemlib/chassis/chassis.hpp"
+#include "pros/rtos.hpp"
 #include <new>
 using namespace okapi;
 //#include "EZ-Template/PID.hpp"
@@ -16,13 +17,15 @@ using namespace okapi;
 // Defines PID Constains for both EZ and LemLib
 void defaultConstants() {
   // EZ Forward PID Constants
-  EZchassis.pid_drive_constants_forward_set(3.3, 0, 0); // Sets forward
-  EZchassis.pid_drive_constants_backward_set(3.4, 0, 0); // Sets backward
-  EZchassis.pid_heading_constants_set(5, 0, 18); // Sets Heading
-  EZchassis.pid_turn_constants_set(3.3, 0, 20); // Sets Turn
+  EZchassis.pid_drive_constants_forward_set(16.5, 0, 3); // Sets forward
+  EZchassis.pid_drive_constants_backward_set(16.5, 0, 3); // Sets backward
+  EZchassis.pid_heading_constants_set(8, 0, 23); // Sets Heading
+  EZchassis.pid_turn_constants_set(3.6, 0, 20); // Sets Turn
   EZchassis.pid_swing_constants_forward_set(5, 0, 30); // Sets forward Swing
   EZchassis.pid_swing_constants_backward_set(5, 0, 30); // Sets backward Swing
-  EZchassis.slew_drive_constants_set(5_in, 90); //Controls how soon, and how vilently the robot will decelerate.
+  EZchassis.slew_drive_constants_set(20_in, 65); //Controls how soon, and how vilently the robot will decelerate.
+  EZchassis.pid_odom_turn_exit_condition_set(80_ms, 3_deg, 250_ms, 7_deg, 500_ms, 750_ms);
+  EZchassis.pid_odom_drive_exit_condition_set(80_ms, 1_in, 250_ms, 3_in, 500_ms, 750_ms);
 
   /*// EZ Forbackward PID Constants
   EZBackwardchassis.pid_drive_constants_forward_set(3.3, 0, 0); // Sets forward
@@ -41,31 +44,152 @@ void defaultConstants() {
 // Test Example Autonomous
 void testAuton(){
   EZchassis.drive_brake_set(MOTOR_BRAKE_HOLD); // Sets Drive Break to Brake Hole from EZ Template.
-
+  EZchassis.pid_odom_set(48,110, true);
+  EZchassis.pid_wait();
 }
 
 // Angular PID Example Autonomous
 void left_side_blue() {
+  Color = false;
   EZchassis.drive_brake_set(MOTOR_BRAKE_HOLD); // Sets Drive Break to Brake Hole from EZ Template.
-
+  ladyBrownM.move(-127);
+  pros::delay(1000);
+  ladyBrownM.move(0);
+  EZchassis.pid_odom_set(-12,115);
+  EZchassis.pid_wait();
+  ladyBrownM.move(127);
+  EZchassis.pid_turn_relative_set(58,100);
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set(-31,85);
+  EZchassis.pid_wait();
+  ladyBrownM.move(0);
+  pros::delay(500);
+  clampP.set(true);
+  pros::delay(500);
+  EZchassis.pid_turn_relative_set(85,100);
+  EZchassis.pid_wait();
+  setIntake(-127);
+  EZchassis.pid_odom_set(18,80);
+  EZchassis.pid_wait();
+  pros::delay(750);
+  setIntake(0);
+  EZchassis.pid_turn_relative_set(83,100);
+  EZchassis.pid_wait();
+  setIntake(-127);
+  EZchassis.pid_odom_set(14,80);
+  EZchassis.pid_wait();
+  pros::delay(800);
+  EZchassis.pid_turn_relative_set(110,100);
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set(30,127);
 }
 
 // Right Side Example Autonomous
 void right_side_blue(){
+  Color = false;
   EZchassis.drive_brake_set(MOTOR_BRAKE_HOLD); // Sets Drive Break to Brake Hole from EZ Template.
-  
+  ladyBrownM.move(-127);
+  pros::delay(1000);
+  ladyBrownM.move(0);
+  EZchassis.pid_odom_set(-12,115);
+  EZchassis.pid_wait();
+  ladyBrownM.move(127);
+  EZchassis.pid_turn_relative_set(-58,100);
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set(-31,85);
+  EZchassis.pid_wait();
+  ladyBrownM.move(0);
+  pros::delay(500);
+  clampP.set(true);
+  pros::delay(500);
+  EZchassis.pid_turn_relative_set(-85,100);
+  EZchassis.pid_wait();
+  setIntake(-127);
+  EZchassis.pid_odom_set(18,80);
+  EZchassis.pid_wait();
+  pros::delay(750);
+  setIntake(0);
+  EZchassis.pid_turn_relative_set(-83,100);
+  EZchassis.pid_wait();
+  setIntake(-127);
+  EZchassis.pid_odom_set(14,80);
+  EZchassis.pid_wait();
+  pros::delay(800);
+  EZchassis.pid_turn_relative_set(-110,100);
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set(30,127);
 }
 
 // Left Side Example Autonomous
 void left_side_red() {
+  Color = true;
   EZchassis.drive_brake_set(MOTOR_BRAKE_HOLD); // Sets Drive Break to Brake Hole from EZ Template.
-  
+  ladyBrownM.move(-127);
+  pros::delay(1000);
+  ladyBrownM.move(0);
+  EZchassis.pid_odom_set(-12,115);
+  EZchassis.pid_wait();
+  ladyBrownM.move(127);
+  EZchassis.pid_turn_relative_set(58,100);
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set(-31,85);
+  EZchassis.pid_wait();
+  ladyBrownM.move(0);
+  pros::delay(500);
+  clampP.set(true);
+  pros::delay(500);
+  EZchassis.pid_turn_relative_set(85,100);
+  EZchassis.pid_wait();
+  setIntake(-127);
+  EZchassis.pid_odom_set(18,80);
+  EZchassis.pid_wait();
+  pros::delay(750);
+  setIntake(0);
+  EZchassis.pid_turn_relative_set(83,100);
+  EZchassis.pid_wait();
+  setIntake(-127);
+  EZchassis.pid_odom_set(14,80);
+  EZchassis.pid_wait();
+  pros::delay(800);
+  EZchassis.pid_turn_relative_set(110,100);
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set(30,127);
 }
 
 // Right Side Example Autonomous
 void right_side_red(){
+  Color = true;
   EZchassis.drive_brake_set(MOTOR_BRAKE_HOLD); // Sets Drive Break to Brake Hole from EZ Template.
-  
+  ladyBrownM.move(-127);
+  pros::delay(1000);
+  ladyBrownM.move(0);
+  EZchassis.pid_odom_set(-12,115);
+  EZchassis.pid_wait();
+  ladyBrownM.move(127);
+  EZchassis.pid_turn_relative_set(-58,100);
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set(-31,85);
+  EZchassis.pid_wait();
+  ladyBrownM.move(0);
+  pros::delay(500);
+  clampP.set(true);
+  pros::delay(500);
+  EZchassis.pid_turn_relative_set(-85,100);
+  EZchassis.pid_wait();
+  setIntake(-127);
+  EZchassis.pid_odom_set(18,80);
+  EZchassis.pid_wait();
+  pros::delay(750);
+  setIntake(0);
+  EZchassis.pid_turn_relative_set(-83,100);
+  EZchassis.pid_wait();
+  setIntake(-127);
+  EZchassis.pid_odom_set(14,80);
+  EZchassis.pid_wait();
+  pros::delay(800);
+  EZchassis.pid_turn_relative_set(-110,100);
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set(30,127);
 }
 // Skill Autonomous Example Autonomous
 void skills_auto(){
