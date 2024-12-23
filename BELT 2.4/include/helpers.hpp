@@ -7,7 +7,6 @@
 #include "pros/rotation.hpp"
 #include "pros/rtos.hpp"
 #include <ranges>
-#include <cmath>
 
 // The Purpose for this File is to Define Functions and Commands for any and every possible Subsystem which a Team may use on their Robot
 
@@ -189,13 +188,13 @@ inline void MechActiveBreak(){
     }
 }*/
 
-inline double xpos;
-inline double ypos;
-inline double tpos;
+inline double gpsxpos;
+inline double gpsypos;
+inline double gpstpos;
 
 //GPS code
 inline void gpsTask(){
-    xpos = (round((odomGPS.get_position_x() * 39.26) * 100.0) / 100.0);
-    ypos = (round((odomGPS.get_position_y() * 39.26) * 100.0) / 100.0);
-    tpos = odomGPS.get_heading();
+    gpsxpos = (odomGPS.get_position_x() * 39.26);
+    gpsypos = (odomGPS.get_position_y() * 39.26);
+    gpstpos = odomGPS.get_heading();
 }

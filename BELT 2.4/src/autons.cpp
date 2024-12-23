@@ -132,8 +132,8 @@ void left_side_blue_tournament() {
 }
 
 void right_side_red_tournament() {
-  gpsTask();
-  EZchassis.odom_xy_set(xpos,ypos);
+  EZchassis.pid_odom_set({{0,0},fwd,DRIVE_SPEED});
+  EZchassis.pid_wait();
   while (true) { pros::delay(10); }
 } 
 

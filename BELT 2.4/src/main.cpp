@@ -92,8 +92,8 @@ void ez_screen_task() {
             ez::screen_print("x: " + util::to_string_with_precision(EZchassis.odom_x_get()) +
                                  "\ny: " + util::to_string_with_precision(EZchassis.odom_y_get()) +
                                  "\na: " + util::to_string_with_precision(EZchassis.odom_theta_get()) +
-                                 "\ngpsx: " + util::to_string_with_precision(xpos) +
-                                 "\ngpsy: " + util::to_string_with_precision(ypos),
+                                 "\ngpsx: " + util::to_string_with_precision(gpsxpos) +
+                                 "\ngpsy: " + util::to_string_with_precision(gpsypos),
                              1);  // Don't override the top Page line
   
             // Display all trackers that are being used
@@ -131,6 +131,8 @@ void competition_initialize() {
 ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 
 void autonomous() {
+    gpsTask();
+    EZchassis.odom_xy_set(gpsxpos,gpsypos);
     EZchassis.pid_targets_reset();                // Resets PID targets to 0
     EZchassis.drive_imu_reset();                  // Reset gyro position to 0
     EZchassis.drive_sensor_reset();               // Reset drive sensors to 0
