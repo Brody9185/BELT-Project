@@ -1,29 +1,31 @@
 #include "main.h"
 #include "EZ-Template/sdcard.hpp"
+#include "autons.hpp"
 #include "lemlib/asset.hpp"
 #include "pros/misc.h"
 #include "pros/rtos.hpp"
 #include "lemlib/chassis/chassis.hpp"
 
+pros::Task LadyBrownTask(ladyBrownTask);
+//pros::Task GPSTask(gpsTask);
+
 void initialize() {
+	init();
     //EZ
-    EZchassis.initialize();
     ez::as::initialize();
     EZchassis.opcontrol_drive_activebrake_set(0.1); //Sets the EZ active brake.
     EZchassis.opcontrol_curve_buttons_toggle(false); //Toggles weather you can live update joystick curve with buttons.
-    EZchassis.opcontrol_curve_default_set(3, 3.5); // EZ set drive curve
+    EZchassis.opcontrol_curve_default_set(0, 0); // EZ set drive curve
     EZchassis.initialize(); // EZ calibrate sensors (MUST BE FIRST)
     //LEM
     LEMchassis.calibrate(false); // LEMLIB calibrate sensors (MUST BE SECOND)
     EZchassis.opcontrol_curve_default_set(3, 3.5); // EZ set drive curve
     pros::lcd::initialize(); // initialize brain screen
-    defaultConstants(); // set constants
-    init();
+    default_constants(); // set constants
 
     
     //Custom PID Tuning
-    EZchassis.pid_tuner_pids.push_back({"Arm PID Constants", &armPID.constants});
-    EZchassis.pid_tuner_pids.push_back({"Wheel PID Constants", &wheelPID.constants});
+    EZchassis.pid_tuner_pids.push_back({"LB PID Constants", &ladyBrownPID.constants}); // Creat Ez PID for these
     EZchassis.pid_tuner_pids.push_back({"Lin PID Constants", &linPID.constants}); // Creat Ez PID for these
     EZchassis.pid_tuner_pids.push_back({"Ang PID Constants", &angPID.constants}); // Creat Ez PID for these
 
@@ -36,13 +38,30 @@ void initialize() {
     // works, refer to the fmtlib docs
 
     ez::as::auton_selector.autons_add({
-    Auton("Left Side Blue", left_side_blue),
-    Auton("Right Side Blue", right_side_blue),
-    Auton("Left Side Red", left_side_red),
-    Auton("Right Side Red", right_side_red),
-    Auton("Skills", skills_auto),
-    Auton("Do Nothing", do_nothing),
-});
+        {"Right Side Blue Tournament", right_side_blue_tournament},
+        {"Left Side Blue Tournament", left_side_blue_tournament},
+        {"Right Side Red Tournament", right_side_red_tournament},
+        {"Left Side Red Tournament", left_side_red_tournament},
+        {"Right Side Blue Tournament", right_side_blue_tournament},
+        {"Left Side Blue Tournament", left_side_blue_tournament},
+        {"Right Side Red Tournament", right_side_red_tournament},
+        {"Left Side Red Tournament", left_side_red_tournament},
+        /*{"Drive\n\nDrive forward and come back", drive_example},
+        {"Turn\n\nTurn 3 times.", turn_example},
+        {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
+        {"Drive and Turn\n\nSlow down during drive", wait_until_change_speed},
+        {"Swing Turn\n\nSwing in an 'S' curve", swing_example},
+        {"Motion Chaining\n\nDrive forward, turn, and come back, but blend everything together :D", motion_chaining},
+        {"Combine all 3 movements", combining_movements},
+        {"Interference\n\nAfter driving forward, robot performs differently if interfered or not", interfered_example},
+        {"Simple Odom\n\nThis is the same as the drive example, but it uses odom instead!", odom_drive_example},
+        {"Pure Pursuit\n\nGo to (0, 30) and pass through (6, 10) on the way.  Come back to (0, 0)", odom_pure_pursuit_example},
+        {"Pure Pursuit Wait Until\n\nGo to (24, 24) but start running an intake once the robot passes (12, 24)", odom_pure_pursuit_wait_until_example},
+        {"Boomerang\n\nGo to (0, 24, 45) then come back to (0, 0, 0)", odom_boomerang_example},
+        {"Boomerang Pure Pursuit\n\nGo to (0, 24, 45) on the way to (24, 24) then come back to (0, 0, 0)", odom_boomerang_injected_pure_pursuit_example},
+        {"Measure Offsets\n\nThis will turn the robot a bunch of times and calculate your offsets for your tracking wheels.", odom_boomerang_injected_pure_pursuit_example},
+        */
+    });
 
     //PID Tasks
 
@@ -77,9 +96,12 @@ void competition_initialize() {
 ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 
 void autonomous() {
-ez::as::auton_selector.selected_auton_call();
-EZchassis.drive_sensor_reset();
-//EZBackwardchassis.drive_sensor_reset();
+    EZchassis.pid_targets_reset();                // Resets PID targets to 0
+    EZchassis.drive_imu_reset();                  // Reset gyro position to 0
+    EZchassis.drive_sensor_reset();               // Reset drive sensors to 0
+    EZchassis.drive_brake_set(MOTOR_BRAKE_HOLD);  // Set motors to hold.  This helps autonomous consistency
+    ez::as::auton_selector.selected_auton_call();
+    EZchassis.drive_sensor_reset();
 }
 
 void opcontrol() {
@@ -105,12 +127,19 @@ void opcontrol() {
     //Button Inputs
     EZchassis.opcontrol_arcade_standard(ez::SPLIT);
     clampP.button_toggle(master.get_digital_new_press(DIGITAL_L1));
-    colorCorrectP.button_toggle(master.get_digital_new_press(DIGITAL_L2));
     setIntake((master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)-master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))*127);
+	if(master.get_digital_new_press(DIGITAL_Y)){
+		ladyBrownPID.target_set(-310);
+	} else if(master.get_digital_new_press(DIGITAL_DOWN)){
+		ladyBrownPID.target_set(-2400);
+	} else if(master.get_digital_new_press(DIGITAL_RIGHT)){
+		ladyBrownPID.target_set(0);
+	}
 
-        EZchassis.drive_brake_set(pros::E_MOTOR_BRAKE_COAST);
-        int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
-        int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
+
+    EZchassis.drive_brake_set(pros::E_MOTOR_BRAKE_COAST);
+    int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+    int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 
 
         pros::delay(10);    
     }

@@ -71,7 +71,6 @@ extern void opcontrol(void);
 #endif
 
 #ifdef __cplusplus
-
 #include "globals.hpp"
 #include "helpers.hpp"
 #include "EZ-Template/api.hpp"
@@ -82,7 +81,6 @@ extern void opcontrol(void);
 //#include "pros/rtos.hpp"
 #include "lemlib/chassis/chassis.hpp"
 #include "lemlib/asset.hpp"
-
 //#include <iostream>
 #endif
 

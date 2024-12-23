@@ -1,8 +1,10 @@
 #include "EZ-Template/util.hpp"
 #include "main.h"
 #include "EZ-Template/PID.hpp"
+#include "pros/misc.h"
 #include "pros/motors.h"
 #include "pros/rotation.h"
+#include "pros/rotation.hpp"
 #include "pros/rtos.hpp"
 #include <ranges>
 
@@ -22,6 +24,8 @@ inline void setIntake(int intakePower){
     intakeFM.move(intakePower);
     intakeHM.move(-intakePower);
 }
+
+
 
 /*inline void setLadyBrown(int LBPower){
     ladyBrownM.move(LBPower);
@@ -80,4 +84,117 @@ inline void init() {
     ladyBrownR.reset_position();
     ladyBrownM.tare_position();
     ladyBrownPID.exit_condition_set(500,500,800,800,500,500);
+    //gps
+}
+/*
+//Mechanum Active Break
+inline pros::Rotation HorTracking(22);
+inline pros::Rotation VerTracking(23);
+inline pros::Motor FL(24);
+inline pros::Motor FR(24);
+inline pros::Motor BL(24);
+inline pros::Motor BR(24);
+
+inline int stickThreshold = 5;
+inline bool idle = true;
+inline int Error = 100;
+inline int actveBreakPower = 60;
+
+//This can be used in opcontrol, or at the top of initialize depending on if you want to change these numbers during the code
+inline void setMechActiveBreakConditions(int activeBreakPower,int Error, int stickThreshold){
+activeBreakPower = activeBreakPower;
+Error = Error;
+}
+inline void moveForward(){
+FL.move((actveBreakPower/100) * 127);
+FR.move((actveBreakPower/100) * 127);
+BL.move((actveBreakPower/100) * 127);
+BR.move((actveBreakPower/100) * 127);
+}
+inline void moveBackward(){
+FL.move(-(actveBreakPower/100) * 127);
+FR.move(-(actveBreakPower/100) * 127);
+BL.move(-(actveBreakPower/100) * 127);
+BR.move(-(actveBreakPower/100) * 127);
+}
+inline void moveRight(){
+FL.move((actveBreakPower/100) * 127);
+FR.move(-(actveBreakPower/100) * 127);
+BL.move(-(actveBreakPower/100) * 127);
+BR.move((actveBreakPower/100) * 127);
+}
+inline void moveLeft(){
+FL.move(-(actveBreakPower/100) * 127);
+FR.move((actveBreakPower/100) * 127);
+BL.move((actveBreakPower/100) * 127);
+BR.move(-(actveBreakPower/100) * 127);
+}
+inline void moveDownRight(){
+FR.move(-(actveBreakPower/100) * 127);
+BL.move(-(actveBreakPower/100) * 127);
+}
+inline void moveUpLeft(){
+FR.move((actveBreakPower/100) * 127);
+BL.move((actveBreakPower/100) * 127);
+}
+inline void moveUpRight(){
+FL.move((actveBreakPower/100) * 127);
+BR.move((actveBreakPower/100) * 127);
+}
+inline void moveDownLeft(){
+FL.move(-(actveBreakPower/100) * 127);
+BR.move(-(actveBreakPower/100) * 127);
+}
+inline void doNotMove(){
+FL.move(0);
+FR.move(0);
+BL.move(0);
+BR.move(0);
+}
+
+//This goes inside of a pros task in intitialize
+inline void MechActiveBreakTask(int StickThreshold){
+    if(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) <= StickThreshold && controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X) <= StickThreshold && controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y) <= StickThreshold && controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) <= StickThreshold){
+    bool idle = true;
+    } else if(controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) > StickThreshold && controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X) > StickThreshold && controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_Y) > StickThreshold && controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X) > StickThreshold){
+    bool idle = false;
+    }
+}
+
+//This goes in driver Control
+inline void MechActiveBreak(){
+    if(!idle){
+    HorTracking.reset_position();
+    } else if(idle){
+    if(HorTracking.get_position() < -Error){
+        moveRight();
+    } else if(HorTracking.get_position() > Error){
+        moveLeft();
+    } else if(VerTracking.get_position() < -Error){
+        moveForward();
+    } else if(VerTracking.get_position() > Error){
+        moveBackward();
+    } else if(HorTracking.get_position() < -Error && VerTracking.get_position() > Error){
+        moveDownRight();
+    } else if(HorTracking.get_position() > Error && VerTracking.get_position() > Error){
+        moveDownLeft();
+    } else if(HorTracking.get_position() < -Error && VerTracking.get_position() < -Error){
+        moveUpRight();
+    } else if(HorTracking.get_position() > Error && VerTracking.get_position() < -Error){
+        moveUpLeft();
+    } else if(HorTracking.get_position() < Error && HorTracking.get_position() > -Error && VerTracking.get_position() > -Error && VerTracking.get_position() < Error){
+        doNotMove();
+    }
+    }
+}*/
+
+inline double xpos;
+inline double ypos;
+inline double tpos;
+
+//GPS code
+inline void gpsTask(){
+    double xpos = (odomGPS.get_position_x() * 39.26);
+    double ypos = (odomGPS.get_position_y() * 39.26);
+    double tpos = odomGPS.get_heading();
 }

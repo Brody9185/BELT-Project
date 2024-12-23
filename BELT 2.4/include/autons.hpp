@@ -1,28 +1,27 @@
-#include "main.h"
+#pragma once
 
-//functions
+void default_constants();
 
-// Locks the Code into a While Loop until the Robot has Settled - A universal version 'chassis.pid_wait()'
-inline void allPIDWait() {
-LEMchassis.waitUntilDone();
-EZchassis.pid_wait();
-}
-extern void defaultConstants();
+void right_side_blue_tournament();
+void left_side_blue_tournament();
+void right_side_red_tournament();
+void left_side_red_tournament();
+void right_side_blue_wp();
+void left_side_blue_wp();
+void right_side_red_wp();
+void left_side_red_wp();
 
-//Autons
-void testAuton();
-void ang_PID();
-void lin_PID();
-void left_side_blue();
-void right_side_blue();
-void left_side_red();
-void right_side_red();
-void skills_auto();
-void do_nothing();
-void pos_example();
-void point_example();
-
-//PID
-extern ez::PID linPID;
-
-extern ez::PID angPID; 
+void drive_example();
+void turn_example();
+void drive_and_turn();
+void wait_until_change_speed();
+void swing_example();
+void motion_chaining();
+void combining_movements();
+void interfered_example();
+void odom_drive_example();
+void odom_pure_pursuit_example();
+void odom_pure_pursuit_wait_until_example();
+void odom_boomerang_example();
+void odom_boomerang_injected_pure_pursuit_example();
+void measure_offsets();

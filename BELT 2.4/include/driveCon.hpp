@@ -60,7 +60,7 @@ inline ez::Drive EZchassis(
 
     IMU_PORT1,// IMU Port.
     WHEEL_DIAMETER,// Wheel Diameter.
-    600// Drive RPM.
+    DRIVETRAIN_RPM// Drive RPM.
     //Ver2Tracking_PORT,
     //Ver1Tracking_PORT
     );

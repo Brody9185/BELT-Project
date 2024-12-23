@@ -1,11 +1,11 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "Test",
+        "project_name": "Venom Code",
         "target": "v5",
         "templates": {
             "EZ-Template": {
-                "location": "C:\\Users\\gamin\\AppData\\Roaming\\PROS\\templates\\EZ-Template@3.2.0-beta.8",
+                "location": "C:\\Users\\gamin\\AppData\\Roaming\\PROS\\templates\\EZ-Template@3.2.1",
                 "metadata": {
                     "origin": "local"
                 },
@@ -13,21 +13,21 @@
                 "py/object": "pros.conductor.templates.local_template.LocalTemplate",
                 "supported_kernels": "^4.1.1",
                 "system_files": [
-                    "include\\EZ-Template\\util.hpp",
+                    "include\\EZ-Template\\slew.hpp",
+                    "include\\EZ-Template\\piston.hpp",
+                    "include\\EZ-Template\\api.hpp",
+                    "include\\EZ-Template\\auton_selector.hpp",
                     "include\\EZ-Template\\sdcard.hpp",
                     "include\\EZ-Template\\tracking_wheel.hpp",
-                    "include\\EZ-Template\\drive\\drive.hpp",
-                    "include\\EZ-Template\\piston.hpp",
+                    "include\\EZ-Template\\auton.hpp",
                     "include\\EZ-Template\\PID.hpp",
-                    "firmware\\EZ-Template.a",
-                    "include\\EZ-Template\\auton_selector.hpp",
-                    "include\\EZ-Template\\slew.hpp",
-                    "include\\EZ-Template\\api.hpp",
-                    "include\\EZ-Template\\auton.hpp"
+                    "include\\EZ-Template\\util.hpp",
+                    "include\\EZ-Template\\drive\\drive.hpp",
+                    "firmware\\EZ-Template.a"
                 ],
                 "target": "v5",
                 "user_files": [],
-                "version": "3.2.0-beta.8"
+                "version": "3.2.1"
             },
             "LemLib": {
                 "location": "C:\\Users\\gamin\\AppData\\Roaming\\PROS\\templates\\LemLib@0.5.4",
@@ -322,7 +322,10 @@
                 "version": "8.3.8"
             }
         },
-        "upload_options": {},
+        "upload_options": {
+            "description": ".",
+            "icon": "alien"
+        },
         "use_early_access": true
     }
 }
