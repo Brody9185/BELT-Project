@@ -194,7 +194,7 @@ inline double tpos;
 
 //GPS code
 inline void gpsTask(){
-    double xpos = (odomGPS.get_position_x() * 39.26);
-    double ypos = (odomGPS.get_position_y() * 39.26);
-    double tpos = odomGPS.get_heading();
+    xpos = (odomGPS.get_position_x() * 39.26);
+    ypos = (odomGPS.get_position_y() * 39.26);
+    tpos = odomGPS.get_heading();
 }

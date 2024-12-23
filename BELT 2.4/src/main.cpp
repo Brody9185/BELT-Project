@@ -7,7 +7,7 @@
 #include "lemlib/chassis/chassis.hpp"
 
 pros::Task LadyBrownTask(ladyBrownTask);
-//pros::Task GPSTask(gpsTask);
+pros::Task GPSTask(gpsTask);
 
 void initialize() {
 	init();
@@ -38,7 +38,7 @@ void initialize() {
     // works, refer to the fmtlib docs
 
     ez::as::auton_selector.autons_add({
-        {"Right Side Blue Tournament", right_side_blue_tournament},
+        {"Right Side Blue Tournament", right_side_red_tournament},
         {"Left Side Blue Tournament", left_side_blue_tournament},
         {"Right Side Red Tournament", right_side_red_tournament},
         {"Left Side Red Tournament", left_side_red_tournament},
@@ -80,6 +80,41 @@ void initialize() {
     }); */
     master.rumble(".");
 }
+void ez_screen_task() {
+    while (true) {
+      // Only run this when not connected to a competition switch
+      if (!pros::competition::is_connected()) {
+        // Blank page for odom debugging
+        if (EZchassis.odom_enabled() && !EZchassis.pid_tuner_enabled()) {
+          // If we're on the first blank page...
+          if (ez::as::page_blank_is_on(0)) {
+            // Display X, Y, and Theta
+            ez::screen_print("x: " + util::to_string_with_precision(EZchassis.odom_x_get()) +
+                                 "\ny: " + util::to_string_with_precision(EZchassis.odom_y_get()) +
+                                 "\na: " + util::to_string_with_precision(EZchassis.odom_theta_get()) +
+                                 "\ngpsx: " + util::to_string_with_precision(xpos) +
+                                 "\ngpsy: " + util::to_string_with_precision(ypos),
+                             1);  // Don't override the top Page line
+  
+            // Display all trackers that are being used
+            //screen_print_tracker(EZchassis.odom_tracker_left, "l", 4);
+            //screen_print_tracker(EZchassis.odom_tracker_right, "r", 5);
+            //screen_print_tracker(EZchassis.odom_tracker_back, "b", 6);
+            //screen_print_tracker(EZchassis.odom_tracker_front, "f", 7);
+          }
+        }
+      }
+  
+      // Remove all blank pages when connected to a comp switch
+      else {
+        if (ez::as::page_blank_amount() > 0)
+          ez::as::page_blank_remove_all();
+      }
+  
+      pros::delay(ez::util::DELAY_TIME);
+    }
+  }
+  pros::Task ezScreenTask(ez_screen_task);
 
 
 void disabled() {
