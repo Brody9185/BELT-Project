@@ -197,4 +197,5 @@ inline void gpsTask(){
     gpsxpos = (odomGPS.get_position_x() * 39.26);
     gpsypos = (odomGPS.get_position_y() * 39.26);
     gpstpos = odomGPS.get_heading();
+    pros::delay(ez::util::DELAY_TIME);
 }

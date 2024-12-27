@@ -13,7 +13,7 @@ inline ez::Piston colorCorrectP('H',false);
 
 inline pros::Optical colorCheckO(7);
 
-inline pros::Gps odomGPS(3,-6,5.5);
+inline pros::Gps odomGPS(3,-6,5.5, 0);
 
 inline pros::Motor ladyBrownM(2, pros::MotorGears::blue, pros::v5::MotorUnits::counts);
 
