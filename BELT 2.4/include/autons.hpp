@@ -2,14 +2,11 @@
 
 void default_constants();
 
-void right_side_blue_tournament();
-void left_side_blue_tournament();
+void Red_Solo_WP();
+void Blue_Solo_WP();
 void right_side_red_tournament();
 void left_side_red_tournament();
-void right_side_blue_wp();
-void left_side_blue_wp();
-void right_side_red_wp();
-void left_side_red_wp();
+void Skills();
 
 void drive_example();
 void turn_example();

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/adi.hpp"
 #include "pros/gps.hpp"
 #include "pros/motors.hpp"
 #include "pros/optical.hpp"
@@ -22,7 +23,6 @@ inline pros::Rotation ladyBrownR(12);
 //Auton Selector
 inline pros::adi::DigitalIn increase('A'); //limit swith for auton selector
 inline pros::adi::DigitalIn decrease('B'); //limit swith for auton selector
-
-inline pros::adi::DigitalIn ladyBrownL('C');
+inline pros::adi::DigitalIn lbCheck('H');
 
 inline int countController = 0;

@@ -19,9 +19,10 @@ const int SWING_SPEED = 110;
 ///
 void default_constants() {
   // P, I, D, and Start I
-  EZchassis.pid_drive_constants_set(37.0, 0.0, 600);         // Fwd/rev constants, used for odom and non odom motions
+  EZchassis.pid_drive_constants_forward_set(15.0,0.0,120);      // Fwd/rev constants, used for odom and non odom motions
+  EZchassis.pid_drive_constants_backward_set(15.0, 0.0, 105);         // Fwd/rev constants, used for odom and non odom motions
   EZchassis.pid_heading_constants_set(15.0, 0.0, 0);        // Holds the robot straight while going forward without odom
-  EZchassis.pid_turn_constants_set(5.2, 0, 20.0);     // Turn in place constants
+  EZchassis.pid_turn_constants_set(5.2, 0, 35.0);     // Turn in place constants
   EZchassis.pid_swing_constants_set(7.0, 0.0, 30);           // Swing constants
   EZchassis.pid_odom_angular_constants_set(6.5, 0.0, 52.5);    // Angular control for odom motions
   EZchassis.pid_odom_boomerang_constants_set(5.8, 0.0, 32.5);  // Angular control for boomerang motions
@@ -59,82 +60,75 @@ void default_constants() {
 ///
 //Right Side Tournament
 ///
-void right_side_blue_tournament() {
-  EZchassis.odom_xyt_set(24_in, -60_in, 180_deg);
-  EZchassis.pid_odom_set({{24, -24}, rev, DRIVE_SPEED});
-  pros::delay(1000);
-  clampP.set(true);
-  setIntake(-127);
-  pros::delay(200);
-  EZchassis.pid_odom_set({{55, -24}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_wait();
-  EZchassis.pid_odom_set({{35, -24}, rev, DRIVE_SPEED});
-  pros::delay(500);
-  setIntake(-127);
-  EZchassis.pid_odom_set({{ 45,-11}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set({{ 50,-9}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set(3,DRIVE_SPEED);
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_turn_relative_set(-45,TURN_SPEED);
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set({{69, -68,130}, fwd, DRIVE_SPEED});
+void Red_Solo_WP() {
+  EZchassis.odom_xyt_set(14.5_in, -51.5_in, -90_deg);
+  EZchassis.pid_odom_set({{3, -51}, fwd, 50});
   EZchassis.pid_wait();
   setIntake(127);
-  pros::delay(300);
-  setIntake(-127);
-  pros::delay(200);
-  EZchassis.pid_odom_set(-20,70);
+  pros::delay(50);
+  setIntake(0);
+  intakeFM.move(-127);
+  pros::delay(500);
+  EZchassis.pid_odom_set({{24, -24}, rev, DRIVE_SPEED});
   EZchassis.pid_wait();
+  clampP.set(true);
+  pros::delay(200);
+  setIntake(-127);
+  EZchassis.pid_odom_set({{50, -24}, fwd, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  setIntake(0);
+  EZchassis.pid_turn_relative_set(-90,TURN_SPEED);
+  EZchassis.pid_wait();
+  clampP.set(false);
+  EZchassis.pid_odom_set({{52, -8,180}, rev, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  clampP.set(true);
+  pros::delay(200);
+  setIntake(-127);
+  EZchassis.pid_odom_set({{ 0,-24}, fwd, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  setIntake(-127);
 }
 
-void left_side_blue_tournament() {
-  EZchassis.odom_xyt_set(-24_in, -60_in, 180_deg);
-  EZchassis.pid_odom_set({{-24, -24}, rev, DRIVE_SPEED});
-  pros::delay(1000);
-  clampP.set(true);
-  setIntake(-127);
-  pros::delay(200);
-  EZchassis.pid_odom_set({{-55, -24}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_wait();
-  EZchassis.pid_odom_set({{-35, -24}, rev, DRIVE_SPEED});
-  pros::delay(500);
-  setIntake(-127);
-  EZchassis.pid_odom_set({{ -45,-11}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set({{ -50,-9}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set(3,DRIVE_SPEED);
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_turn_relative_set(-45,TURN_SPEED);
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set({{-69, -68,130}, fwd, DRIVE_SPEED});
+void Blue_Solo_WP() {
+  EZchassis.odom_xyt_set(14.5_in, 51.5_in, -90_deg);
+  EZchassis.pid_odom_set({{3, 51}, fwd, 50});
   EZchassis.pid_wait();
   setIntake(127);
-  pros::delay(300);
-  setIntake(-127);
-  pros::delay(200);
-  EZchassis.pid_odom_set(-20,70);
+  pros::delay(50);
+  setIntake(0);
+  intakeFM.move(-127);
+  pros::delay(500);
+  EZchassis.pid_odom_set({{24, 24}, rev, DRIVE_SPEED});
   EZchassis.pid_wait();
+  clampP.set(true);
+  pros::delay(200);
+  setIntake(-127);
+  EZchassis.pid_odom_set({{50, 24}, fwd, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  setIntake(0);
+  EZchassis.pid_turn_relative_set(90,TURN_SPEED);
+  EZchassis.pid_wait();
+  clampP.set(false);
+  EZchassis.pid_odom_set({{52, 8,180}, rev, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  clampP.set(true);
+  pros::delay(200);
+  setIntake(-127);
+  EZchassis.pid_odom_set({{ 0,24}, fwd, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  setIntake(-127);
 }
 
 void right_side_red_tournament() {
-  EZchassis.pid_odom_set({{0,0},fwd,DRIVE_SPEED});
+  EZchassis.odom_xyt_set(0,-58,0);
+  setIntake(-127);
+  pros::delay(300);
+  EZchassis.pid_odom_set({{-24,-48},rev,DRIVE_SPEED});
   EZchassis.pid_wait();
-  while (true) { pros::delay(10); }
+  clampP.set(true);
+  pros::delay(200);
+  
 } 
 
 void left_side_red_tournament() {
@@ -236,67 +230,109 @@ void left_side_blue_wp() {
   EZchassis.pid_wait();
 }
 
-void right_side_red_wp() {
-  EZchassis.odom_xyt_set(24_in, -60_in, 180_deg);
-  EZchassis.pid_odom_set({{24, -24}, rev, DRIVE_SPEED});
-  pros::delay(1000);
-  clampP.set(true);
+void Skills() {
+  EZchassis.odom_xyt_set(0, -62, 0);
   setIntake(-127);
-  pros::delay(200);
-  EZchassis.pid_odom_set({{55, -24}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
   pros::delay(100);
-  setIntake(127);
-  EZchassis.pid_wait();
-  EZchassis.pid_odom_set({{35, -24}, rev, DRIVE_SPEED});
-  pros::delay(500);
+  setIntake(0);
+  EZchassis.pid_odom_set({{-24, -48}, rev, DRIVE_SPEED});
+  clampP.set(true);
+  pros::delay(100);
   setIntake(-127);
-  EZchassis.pid_odom_set({{ 38,-11}, fwd, DRIVE_SPEED});
+  EZchassis.pid_odom_set({{{-24, -24}, fwd, DRIVE_SPEED}, 
+    {{-48, -24}, fwd, DRIVE_SPEED},
+    {{-60, -48}, fwd, DRIVE_SPEED},
+    {{-48, -48}, fwd, DRIVE_SPEED},
+    {{-48, -60}, fwd, DRIVE_SPEED},
+    {{-50, -50,45}, rev, DRIVE_SPEED}});
+  EZchassis.pid_wait();
+  clampP.set(false);
+  pros::delay(100);
+  setIntake(-127);
+  EZchassis.pid_odom_set({{0, 0}, fwd, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  setIntake(0);
+  intakeFM.move(-127);
+  EZchassis.pid_odom_set({{ 24,-24}, fwd, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set({{ 24,-48}, rev, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  clampP.set(true);
+  pros::delay(100);
+  setIntake(-127);
+  EZchassis.pid_odom_set({{{48,-24}, fwd, DRIVE_SPEED},
+    {{60,-48}, fwd, DRIVE_SPEED},
+    {{48,-48}, fwd, DRIVE_SPEED},
+    {{48,-60}, fwd, DRIVE_SPEED},
+    {{50,-50,-45}, rev, DRIVE_SPEED}});
+  EZchassis.pid_wait();
+  clampP.set(false);
+  pros::delay(100);
+  setIntake(-127);
+  ladyBrownPID.target_set(-300);
+  EZchassis.pid_odom_set({{{48,0}, fwd, DRIVE_SPEED},
+    {{65,0}, fwd, DRIVE_SPEED}});
+  EZchassis.pid_wait();
+  setIntake(40);
+  ladyBrownPID.target_set(-2100);
+  ladyBrownWait();
+  EZchassis.pid_odom_set(-10,DRIVE_SPEED);
+  EZchassis.pid_wait();
+  if(lbCheck.get_value() == false){
+    while (lbCheck.get_value() == false) {
+    ladyBrownPID.target_set(1000);
+    }
+  } else if(lbCheck.get_value() == true){
+    ladyBrownM.set_zero_position(0);
+    ladyBrownPID.target_set(0);
+  }
+  setIntake(-127);
+  EZchassis.pid_odom_set({{48, 24}, fwd, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  setIntake(0);
+  intakeFM.move(-127);
+  EZchassis.pid_odom_set({{24, 24}, fwd, DRIVE_SPEED});
+  EZchassis.pid_wait();
+  EZchassis.pid_odom_set({{0, 62,180}, rev, DRIVE_SPEED});
   EZchassis.pid_wait();
   setIntake(-127);
-  EZchassis.pid_odom_set({{ 50,-9}, fwd, DRIVE_SPEED});
+  pros::delay(300);
+  setIntake(0);
+  EZchassis.pid_odom_set({{{12,54}, fwd, DRIVE_SPEED},
+    {{24,60}, fwd, DRIVE_SPEED},
+    {{50,50}, fwd, DRIVE_SPEED},
+    {{24,60}, rev, DRIVE_SPEED},
+    {{0,48}, rev, DRIVE_SPEED}});
   EZchassis.pid_wait();
+  clampP.set(true);
+  pros::delay(100);
   setIntake(-127);
-  EZchassis.pid_odom_set(3,DRIVE_SPEED);
+  EZchassis.pid_odom_set({{{-24,-24}, fwd, DRIVE_SPEED},
+    {{-48,24}, fwd, DRIVE_SPEED},
+    {{-48,60}, fwd, DRIVE_SPEED},
+    {{-48,36}, rev, DRIVE_SPEED},
+    {{-60,48}, fwd, DRIVE_SPEED}});
   EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_turn_relative_set(-45,TURN_SPEED);
+  setIntake(0);
+  EZchassis.pid_odom_set({{-50,50,135},rev,DRIVE_SPEED});
   EZchassis.pid_wait();
+  clampP.set(false);
+  ladyBrownPID.target_set(-300);
   setIntake(-127);
-  EZchassis.pid_odom_set({{0, -24}, fwd, DRIVE_SPEED});
+  EZchassis.pid_odom_set({{{-48,0}, fwd, DRIVE_SPEED},
+  {{-65,0}, fwd, DRIVE_SPEED}});
+  EZchassis.pid_wait();
+  ladyBrownPID.target_set(-2100);
+  ladyBrownWait();
+  EZchassis.pid_odom_set(-10,DRIVE_SPEED);
+  EZchassis.pid_wait();
+  ladyBrownPID.target_set(-1000);
+  EZchassis.pid_odom_set({{{-24,24}, rev, DRIVE_SPEED},
+    {{-10,10,45}, rev, 80}});
   EZchassis.pid_wait();
 }
 
-void left_side_red_wp() {
-  EZchassis.odom_xyt_set(-24_in, -60_in, 0_deg);
-  EZchassis.pid_odom_set({{24, -24}, rev, DRIVE_SPEED});
-  pros::delay(1000);
-  clampP.set(true);
-  setIntake(-127);
-  pros::delay(200);
-  EZchassis.pid_odom_set({{55, -24}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  pros::delay(100);
-  setIntake(127);
-  EZchassis.pid_wait();
-  EZchassis.pid_odom_set({{35, -24}, rev, DRIVE_SPEED});
-  pros::delay(500);
-  setIntake(-127);
-  EZchassis.pid_odom_set({{ 38,-11}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set({{ 50,-9}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set(3,DRIVE_SPEED);
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_turn_relative_set(-45,TURN_SPEED);
-  EZchassis.pid_wait();
-  setIntake(-127);
-  EZchassis.pid_odom_set({{0, -24}, fwd, DRIVE_SPEED});
-  EZchassis.pid_wait();
-}
+
 
 
 

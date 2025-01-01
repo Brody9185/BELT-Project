@@ -16,8 +16,8 @@ inline ez::PID linPID{0,0,10,0,"LEM Linear"}; //Set the LEM PID Values for Linea
 inline ez::PID angPID{0,0,3,0,"LEM Angular"}; //Set the LEM PID Values for Angular Movment
 
 //Motors
-inline pros::Motor intakeFM (15, pros::v5::MotorGears::blue, pros::v5::MotorUnits::rotations);
 inline pros::Motor intakeHM (16, pros::v5::MotorGears::blue, pros::v5::MotorUnits::rotations);
+inline pros::Motor intakeFM (15, pros::v5::MotorGears::blue, pros::v5::MotorUnits::rotations);
 
 // Example Intake Helper Function Code
 inline void setIntake(int intakePower){

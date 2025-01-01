@@ -38,14 +38,11 @@ void initialize() {
     // works, refer to the fmtlib docs
 
     ez::as::auton_selector.autons_add({
-        {"Right Side Blue Tournament", right_side_red_tournament},
-        {"Left Side Blue Tournament", left_side_blue_tournament},
+        {"Red Solo WP", Red_Solo_WP},
+        {"Blue Solo WP", Blue_Solo_WP},
         {"Right Side Red Tournament", right_side_red_tournament},
         {"Left Side Red Tournament", left_side_red_tournament},
-        {"Right Side Blue Tournament", right_side_blue_tournament},
-        {"Left Side Blue Tournament", left_side_blue_tournament},
-        {"Right Side Red Tournament", right_side_red_tournament},
-        {"Left Side Red Tournament", left_side_red_tournament},
+        {"Skills", Skills},
         /*{"Drive\n\nDrive forward and come back", drive_example},
         {"Turn\n\nTurn 3 times.", turn_example},
         {"Drive and Turn\n\nDrive forward, turn, come back", drive_and_turn},
@@ -131,8 +128,6 @@ void competition_initialize() {
 ASSET(example_txt); // '.' replaced with "_" to make c++ happy
 
 void autonomous() {
-    gpsTask();
-    EZchassis.odom_xy_set(gpsxpos,gpsypos);
     EZchassis.pid_targets_reset();                // Resets PID targets to 0
     EZchassis.drive_imu_reset();                  // Reset gyro position to 0
     EZchassis.drive_sensor_reset();               // Reset drive sensors to 0
@@ -166,12 +161,15 @@ void opcontrol() {
     clampP.button_toggle(master.get_digital_new_press(DIGITAL_L1));
     setIntake((master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)-master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))*127);
 	if(master.get_digital_new_press(DIGITAL_Y)){
-		ladyBrownPID.target_set(-310);
+		ladyBrownPID.target_set(-300);
 	} else if(master.get_digital_new_press(DIGITAL_DOWN)){
-		ladyBrownPID.target_set(-2400);
+		ladyBrownPID.target_set(-2100);
 	} else if(master.get_digital_new_press(DIGITAL_RIGHT)){
-		ladyBrownPID.target_set(0);
-	}
+		ladyBrownPID.target_set(1000);
+	} else if(lbCheck.get_new_press()){
+    ladyBrownM.set_zero_position(0);
+    ladyBrownPID.target_set(0);
+  }
 
 
     EZchassis.drive_brake_set(pros::E_MOTOR_BRAKE_COAST);
