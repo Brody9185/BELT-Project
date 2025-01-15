@@ -10,6 +10,7 @@ pros::Task LadyBrownTask(ladyBrownTask);
 pros::Task GPSTask(gpsTask);
 
 void initialize() {
+  cout << Angle << endl;
 	init();
     //EZ
     ez::as::initialize();
@@ -40,8 +41,10 @@ void initialize() {
     ez::as::auton_selector.autons_add({
         {"Red Solo WP", Red_Solo_WP},
         {"Blue Solo WP", Blue_Solo_WP},
-        {"Right Side Red Tournament", right_side_red_tournament},
-        {"Left Side Red Tournament", left_side_red_tournament},
+        {"Red Tournament", Red_Tournament},
+        {"Blue Tournament", Blue_Tournament},
+        {"Red 3 Ring", Red_3_Ring},
+        {"Red 3 Ring", Blue_3_Ring},
         {"Skills", Skills},
         /*{"Drive\n\nDrive forward and come back", drive_example},
         {"Turn\n\nTurn 3 times.", turn_example},
@@ -161,17 +164,22 @@ void opcontrol() {
     clampP.button_toggle(master.get_digital_new_press(DIGITAL_L1));
     setIntake((master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)-master.get_digital(pros::E_CONTROLLER_DIGITAL_R2))*127);
 	if(master.get_digital_new_press(DIGITAL_Y)){
-		ladyBrownPID.target_set(-300);
+		ladyBrownPID.target_set(-350);
 	} else if(master.get_digital_new_press(DIGITAL_DOWN)){
-		ladyBrownPID.target_set(-2100);
+		ladyBrownPID.target_set(-2300);
 	} else if(master.get_digital_new_press(DIGITAL_RIGHT)){
-		ladyBrownPID.target_set(1000);
-	} else if(lbCheck.get_new_press()){
+		ladyBrownPID.target_set(2500);
+	} else if(master.get_digital_new_press(DIGITAL_LEFT)){
+    ladyBrownPID.target_set(-1000);
+  } else if(master.get_digital_new_press(DIGITAL_L2)){
     ladyBrownM.set_zero_position(0);
     ladyBrownPID.target_set(0);
+  } else if(lbCheck.get_new_press()){
+    ladyBrownM.set_zero_position(0);
+    ladyBrownPID.target_set(0);
+  } else if(master.get_digital_new_press(DIGITAL_B)){
+    ladyBrownPID.target_set(-2000);
   }
-
-
     EZchassis.drive_brake_set(pros::E_MOTOR_BRAKE_COAST);
     int leftY = controller.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
     int rightX = controller.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X); 

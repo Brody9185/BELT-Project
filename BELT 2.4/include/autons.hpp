@@ -1,11 +1,12 @@
 #pragma once
 
 void default_constants();
-
 void Red_Solo_WP();
 void Blue_Solo_WP();
-void right_side_red_tournament();
-void left_side_red_tournament();
+void Red_Tournament();
+void Blue_Tournament();
+void Red_3_Ring();
+void Blue_3_Ring();
 void Skills();
 
 void drive_example();

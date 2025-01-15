@@ -5,6 +5,7 @@
 #include "pros/misc.h"
 #include "pros/rotation.hpp"
 #include "lemlib/chassis/chassis.hpp"
+#include <cmath>
 
 //driveCon
 
@@ -148,3 +149,54 @@ inline lemlib::OdomSensors sensors(&vertical1, // vertical tracking wheel
 
 // create the chassis
 inline lemlib::Chassis LEMchassis(drivetrain, linearController, angularController, sensors, &throttleCurve, &steerCurve);
+
+//Distance Sensor Update Code
+inline double RawAngle;
+inline double Angle;
+inline double Theta;
+inline double Offset;
+inline double RightSensorCenterDistance;
+inline double LeftSensorCenterDistance;
+inline double RightDistance;
+inline double LeftDistance;
+inline double Distance;
+inline int ConfidenceAvg;
+inline int ConfidenceMin = 30;
+inline pros::v5::Distance SensorLeft(1);
+inline pros::v5::Distance SensorRight(2);
+inline double NorthWall = 72;
+inline double EastWall = 72;
+inline double SouthWall = -72;
+inline double WestWall = -72;
+
+inline void PosTask(){
+    RawAngle = atan((SensorRight.get_distance() - SensorLeft.get_distance()) / Offset);
+    if(RawAngle < 0) {
+        Angle = RawAngle + 360;
+    } else if(RawAngle >= 0) {
+        Angle = RawAngle;
+    }
+    ConfidenceAvg = (SensorRight.get_confidence() + SensorLeft.get_confidence()) / 2;
+}
+
+inline void UpdatePos(char NESW) {
+    if(ConfidenceAvg > ConfidenceMin ) {
+    if(NESW == 'N'){
+    Theta = Angle;
+    Distance = ((fabs(RightSensorCenterDistance * sin(fabs(Angle))) + fabs(LeftSensorCenterDistance * sin(fabs(Angle)))) / 2) + ((cos(fabs(Angle)) * SensorRight.get_distance() + cos(fabs(Angle)) * SensorLeft.get_distance()) / 2);
+    EZchassis.odom_y_set(NorthWall - Distance);
+    } else if(NESW == 'E'){
+    Theta = Angle + 90;
+    Distance = ((fabs(RightSensorCenterDistance * cos(fabs(Angle))) + fabs(LeftSensorCenterDistance * cos(fabs(Angle)))) / 2) + ((cos(fabs(Angle)) * SensorRight.get_distance() + cos(fabs(Angle)) * SensorLeft.get_distance()) / 2);
+    EZchassis.odom_x_set(EastWall - Distance);
+    } else if(NESW == 'S') {
+    Theta = Angle + 180;
+    Distance = ((fabs(RightSensorCenterDistance * sin(fabs(Angle))) + fabs(LeftSensorCenterDistance * sin(fabs(Angle)))) / 2) + ((cos(fabs(Angle)) * SensorRight.get_distance() + cos(fabs(Angle)) * SensorLeft.get_distance()) / 2);
+    EZchassis.odom_y_set(SouthWall - Distance);
+    } else if(NESW == 'W') {
+    Theta = Angle + 270;
+    Distance = ((fabs(RightSensorCenterDistance * cos(fabs(Angle))) + fabs(LeftSensorCenterDistance * cos(fabs(Angle)))) / 2) + ((cos(fabs(Angle)) * SensorRight.get_distance() + cos(fabs(Angle)) * SensorLeft.get_distance()) / 2);
+    EZchassis.odom_x_set(WestWall - Distance);
+    }
+}
+}

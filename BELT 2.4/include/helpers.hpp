@@ -1,11 +1,13 @@
 #include "EZ-Template/util.hpp"
 #include "main.h"
 #include "EZ-Template/PID.hpp"
+#include "pros/distance.hpp"
 #include "pros/misc.h"
 #include "pros/motors.h"
 #include "pros/rotation.h"
 #include "pros/rotation.hpp"
 #include "pros/rtos.hpp"
+#include <cmath>
 #include <ranges>
 
 // The Purpose for this File is to Define Functions and Commands for any and every possible Subsystem which a Team may use on their Robot
@@ -199,3 +201,19 @@ inline void gpsTask(){
     gpstpos = odomGPS.get_heading();
     pros::delay(ez::util::DELAY_TIME);
 }
+
+//Timer
+inline int timer_val;
+
+inline void timerTask() {
+    pros::delay(2000);
+    while(true){
+        timer_val = timer_val + 20;
+        pros::delay(20);
+    }
+
+}
+
+/*inline void setTimer(int Timer){
+    while()
+} */
