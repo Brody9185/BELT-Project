@@ -75,6 +75,7 @@ extern void opcontrol(void);
 #include "helpers.hpp"
 #include "EZ-Template/api.hpp"
 #include "driveCon.hpp"
+#include "driveProfiles.hpp"
 #include "autons.hpp"
 #include "lemlib/api.hpp"
 //#include "pros/misc.h"

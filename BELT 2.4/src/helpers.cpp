@@ -7,6 +7,6 @@ void updatePID() {
     LEMchassis.lateralSettings.kI = linPID.constants.ki;
     LEMchassis.lateralSettings.kD = linPID.constants.kd;
     LEMchassis.angularSettings.kP = angPID.constants.kp;
-    LEMchassis.angularSettings.kP = angPID.constants.ki;
-    LEMchassis.angularSettings.kP = angPID.constants.kd;
+    LEMchassis.angularSettings.kI = angPID.constants.ki;
+    LEMchassis.angularSettings.kD = angPID.constants.kd;
 }

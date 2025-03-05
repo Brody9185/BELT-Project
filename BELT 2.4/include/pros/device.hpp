@@ -189,12 +189,12 @@ class Device {
 	 * 
 	 * \param deviceType The type of the constructed device
 	 */
-	Device(const std::uint8_t port, const enum DeviceType deviceType) : 
+	Device(std::uint8_t port, const enum DeviceType deviceType) : 
 								_port(port), 
 								_deviceType(deviceType) {}
 
 	protected:
-	const std::uint8_t _port;
+	std::uint8_t _port;
 	const enum DeviceType _deviceType = pros::DeviceType::none;
 	
 	///@}
